@@ -21,6 +21,14 @@
                                     Movie World
                                 </jet-nav-link>
                             </div>
+
+                            <template v-if="$page.props.user">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <jet-nav-link :href="route('movie.create')" :active="route().current('movie.create')">
+                                        Add a movie
+                                    </jet-nav-link>
+                                </div>
+                            </template>
                         </div>
 
                         <template v-if="$page.props.user">
@@ -175,6 +183,10 @@
                             </div>
 
                             <div class="mt-3 space-y-1">
+                                <jet-responsive-nav-link :href="route('movie.create')" :active="route().current('movie.create')">
+                                    Add a movie
+                                </jet-responsive-nav-link>
+
                                 <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
                                     Profile
                                 </jet-responsive-nav-link>

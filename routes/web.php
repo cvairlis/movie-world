@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MoviesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,3 +19,5 @@ use Inertia\Inertia;
 Route::get('/', function () {
     return Inertia::render('Main');
 })->name('main');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/movie/create', [MoviesController::class, 'create'])->name('movie.create');
