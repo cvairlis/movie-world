@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Actions\Movies\Create\CreateMovieAction;
+use App\Contracts\Movies\Create\CreateMovieContract;
+use App\Models\Movie;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(CreateMovieContract::class, function ($app) {
+            return new CreateMovieAction($app->make(Movie::class));
+        });
     }
 
     /**

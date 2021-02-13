@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Movies\Create\CreateMovieContract;
+use App\Http\Requests\CreateMovieRequest;
 use App\Models\Movie;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class MoviesController extends Controller
@@ -25,18 +29,21 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Movies/Create');
+        return Inertia::render('Movies/Create/Show');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateMovieRequest $request, CreateMovieContract $creator)
     {
-        //
+        $creator->create($request->user()->id, $request->all());
+
+        return $request->wantsJson()
+                    ? new JsonResponse('', 200)
+                    : back()->with('status', 'password-updated');
     }
 
     /**

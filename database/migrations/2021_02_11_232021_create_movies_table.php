@@ -15,10 +15,10 @@ class CreateMoviesTable extends Migration
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 100);
-            $table->string('subtitle', 100);
-            $table->string('description');
             $table->unsignedBigInteger('user_id');
+            $table->string('title', 100);
+            $table->string('subtitle', 100)->nullable();
+            $table->longText('description');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

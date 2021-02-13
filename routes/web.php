@@ -21,3 +21,5 @@ Route::get('/', function () {
 })->name('main');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/movie/create', [MoviesController::class, 'create'])->name('movie.create');
+
+Route::post('/movie/create', [MoviesController::class, 'store'])->middleware(['auth'])->name('movie.create.store');
