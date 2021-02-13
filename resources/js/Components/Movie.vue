@@ -7,13 +7,11 @@
                 </div>
                 <div class="">
                     <div class="flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-gray-900 -mt-1">Movie Title</h2>
-                        <small class="text-sm text-gray-700">Monday 7 February, 2021</small>
+                        <h2 class="text-lg font-semibold text-gray-900 -mt-1">{{ movie.title }}</h2>
+                        <small class="text-sm text-gray-700">Added at: {{ movie.created_at}}</small>
                     </div>
-                    <p class="text-gray-700">Sub title </p>
-                    <p class="mt-3 text-gray-700 text-sm">
-                        Small description of the movie here. Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet! Lorem ipsum, dolor sit amet conse. Saepe optio minus rem dolor sit amet!
-                    </p>
+                    <p v-if="movie.subtitle" class="text-gray-700"> {{ movie.subtitle }} </p>
+                    <p class="mt-3 text-gray-700 text-sm"> {{ movie.description }} </p>
                     <div class="mt-4 flex items-center">
                         <!-- like -->
                         <div class="flex mr-2 text-gray-700 text-sm mr-3">
@@ -52,7 +50,7 @@
                             </svg>
                         <span>12</span>
                         </div>
-                        <small class="text-sm text-gray-700 pl-6">Posted by Chariss</small>
+                        <small class="text-sm text-gray-700 pl-6">Posted by: {{ movie.user.name }} </small>
                     </div>
                 </div>
             </div>
@@ -67,5 +65,7 @@
         components: {
             JetApplicationLogo,
         },
+
+        props: ['movie'],
     }
 </script>

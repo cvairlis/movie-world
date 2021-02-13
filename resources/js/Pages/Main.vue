@@ -8,12 +8,7 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <movie />
-                <movie />
-                <movie />
-                <movie />
-                <movie />
-                <movie />
+                <movie v-for="movie in movies" :movie="movie" :key="movie.id"></movie>
             </div>
         </div>
     </app-layout>
@@ -28,5 +23,7 @@
             AppLayout,
             Movie,
         },
+
+        props: ['movies'],
     }
 </script>

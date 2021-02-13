@@ -7,7 +7,6 @@ use App\Http\Requests\CreateMovieRequest;
 use App\Models\Movie;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class MoviesController extends Controller
@@ -19,7 +18,9 @@ class MoviesController extends Controller
      */
     public function index()
     {
-        Movie::all();
+        return Inertia::render('Main', [
+            'movies' => Movie::with('user')->get(),
+        ]);
     }
 
     /**
