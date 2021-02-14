@@ -2,13 +2,22 @@
 
 namespace App\Models;
 
+use App\Traits\Votable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Movie extends Model
 {
-    use HasFactory;
+    use HasFactory, Votable;
+
+    protected $attributes = [
+        'likes' => 0,
+        'hates' => 0,
+        'loves' => 0,
+    ];
 
     /**
      * The table associated with the model.
@@ -36,7 +45,10 @@ class Movie extends Model
         return Carbon::parse($value)->format('d M Y');
     }
 
-    public function user()
+    /**
+     * The user that created this movie record
+     */
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

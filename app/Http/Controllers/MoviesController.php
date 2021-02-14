@@ -19,7 +19,7 @@ class MoviesController extends Controller
     public function index()
     {
         return Inertia::render('Main', [
-            'movies' => Movie::with('user')->get(),
+            'movies' => Movie::withVotes()->with('user')->get(),
         ]);
     }
 

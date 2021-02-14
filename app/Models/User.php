@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Votes\Vote;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -58,4 +59,29 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * The votes relation
+     */
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
+    /**
+     * The scope with votes relation
+     * To retrieve sth like the following for each user:
+     *  "liked" => "1",
+     *  "hated" => "0",
+     *  "loved" => "0"
+     */
+    public function scopeWithVotes(Builder $query)
+    {
+        $query->leftJoinSub(
+            'SELECT movie_id, liked, hated, loved from votes',
+            'votes',
+            'votes.movie_id',
+            'users.id'
+        );
+    }
 }
